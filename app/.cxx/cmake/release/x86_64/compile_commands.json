@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/x86_64",
+  "command": "/home/tapos-datta/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=x86_64-none-linux-android21 --gcc-toolchain=/home/tapos-datta/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/linux-x86_64 --sysroot=/home/tapos-datta/Android/Sdk/ndk/21.0.6113669/toolchains/llvm/prebuilt/linux-x86_64/sysroot  -Dnative_lib_EXPORTS -I/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/src/main/cpp/native-lib -I/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/FFMpeg_Build/x86_64/include  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -O2 -DNDEBUG  -fPIC   -o CMakeFiles/native-lib.dir/native-lib.cpp.o -c /media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/src/main/cpp/native-lib.cpp",
+  "file": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/src/main/cpp/native-lib.cpp"
+}
+]

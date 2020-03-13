@@ -1,0 +1,72 @@
+{
+  "variant": {
+    "module": {
+      "rootBuildGradleFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation",
+      "sdkFolder": "/home/tapos-datta/Android/Sdk",
+      "isNativeCompilerSettingsCacheEnabled": false,
+      "isBuildOnlyTargetAbiEnabled": true,
+      "splitsAbiFilterSet": [],
+      "intermediatesFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates",
+      "gradleModulePathName": ":app",
+      "moduleRootFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app",
+      "makeFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/src/main/cpp/CMakeLists.txt",
+      "buildSystem": "CMAKE",
+      "compilerSettingsCacheFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/.cxx",
+      "cxxFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx",
+      "ndkFolder": "/home/tapos-datta/Android/Sdk/ndk/21.0.6113669",
+      "ndkVersion": "21.0.6113669",
+      "ndkSupportedAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "ndkDefaultAbiList": [
+        "ARMEABI_V7A",
+        "ARM64_V8A",
+        "X86",
+        "X86_64"
+      ],
+      "cmakeToolchainFile": "."
+    },
+    "buildSystemArgumentList": [],
+    "cFlagList": [],
+    "cppFlagsList": [
+      ""
+    ],
+    "variantName": "release",
+    "soFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/release/lib",
+    "objFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/release/obj",
+    "jsonFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release",
+    "gradleBuildOutputFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cxx/release",
+    "isDebuggableEnabled": false,
+    "validAbiList": [
+      "ARMEABI_V7A",
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
+    ],
+    "buildTargetSet": []
+  },
+  "abi": "ARM64_V8A",
+  "abiPlatformVersion": 21,
+  "cxxBuildFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/arm64-v8a",
+  "jsonFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/arm64-v8a/android_gradle_build.json",
+  "gradleBuildOutputFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cxx/release/arm64-v8a",
+  "objFolder": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/release/obj/arm64-v8a",
+  "buildCommandFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/arm64-v8a/build_command.txt",
+  "buildOutputFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/arm64-v8a/build_output.txt",
+  "modelOutputFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/arm64-v8a/build_model.json",
+  "cmake": {
+    "cmakeListsWrapperFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cxx/release/arm64-v8a/CMakeLists.txt",
+    "toolchainWrapperFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cxx/release/arm64-v8a/android_gradle_build.toolchain.cmake",
+    "buildGenerationStateFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cxx/release/arm64-v8a/build_generation_state.json",
+    "cacheKeyFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cxx/release/arm64-v8a/compiler_cache_key.json",
+    "compilerCacheUseFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cxx/release/arm64-v8a/compiler_cache_use.json",
+    "compilerCacheWriteFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cxx/release/arm64-v8a/compiler_cache_write.json",
+    "toolchainSettingsFromCacheFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cxx/release/arm64-v8a/compiler_settings_cache.cmake",
+    "cmakeWrappingBaseFolder": "."
+  },
+  "jsonGenerationLoggingRecordFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/arm64-v8a/json_generation_record.json",
+  "compileCommandsJsonFile": "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/arm64-v8a/compile_commands.json"
+}

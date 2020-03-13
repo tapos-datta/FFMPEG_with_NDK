@@ -1,0 +1,27 @@
+# ninja log v5
+1	843	1584117992	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+843	904	1584117992	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	8160421f874261d7
+1	798	1584126056	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+799	868	1584126056	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+2	1039	1584126156	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+1039	1114	1584126156	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+2	1528	1584126208	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+1528	1630	1584126209	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+2	1524	1584126434	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+1524	1598	1584126434	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+4	2565	1584126516	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+2565	2718	1584126516	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+2	1337	1584126590	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+1337	1435	1584126590	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+2	1524	1584126616	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+1524	1628	1584126617	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+3	2300	1584127699	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+2301	2463	1584127699	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+2	2522	1584127742	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+2523	2668	1584127742	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+2	1086	1584128077	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+1087	1160	1584128077	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+2	1932	1584128607	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+1932	2058	1584128607	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
+1	2318	1584128645	CMakeFiles/native-lib.dir/native-lib.cpp.o	aa8afd1ab99d97d0
+2318	2432	1584128645	/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/build/intermediates/cmake/debug/obj/armeabi-v7a/libnative-lib.so	b29b1125ca00745b
