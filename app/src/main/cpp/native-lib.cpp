@@ -20,6 +20,7 @@ extern "C"{
 #define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 
 AVFormatContext *formatContext = NULL;
+AVCodecContext *codecContext = NULL;
 SwrContext *swr_ctx = NULL;
 int audioStreamIndex = -1;
 AVCodec *codec = NULL;
@@ -28,6 +29,8 @@ int64_t max_dst_nb_samples, dst_nb_samples;
 uint8_t* dst_data =NULL;
 int dst_linesize;
 int dst_bufsize;
+bool isSetupSWR = false;
+bool stopRequest = false;
 
 int _getStreamInformation();
 
@@ -36,49 +39,29 @@ AVCodecContext* _getCodecContext(int index);
 void _setUpSWR(AVFrame *pFrame);
 
 
-extern "C" JNIEXPORT jstring JNICALL
-Java_com_example_ffmpegintregation_DecodeAudio_stringFromJNI(
-        JNIEnv *env,
-        jobject /* this */) {
-    std::string hello = "Hello from C++";
-    return env->NewStringUTF(hello.c_str());
-}
-
-
-
-
-extern "C" JNIEXPORT jstring JNICALL
-Java_com_example_ffmpegintregation_DecodeAudio_decodeFile(JNIEnv *env, jobject obj, jstring filePath,jobject listener){
-
-
-    const char *filename = env->GetStringUTFChars(filePath,NULL);
+extern "C" JNIEXPORT jint JNICALL
+Java_com_example_ffmpegintregation_DecodeAudio_prepare(JNIEnv *env, jobject obj, jstring filePath){
 
     jclass cls = env->GetObjectClass(obj);
-    jmethodID methodId  = env->GetMethodID(cls,"setRawData","([B)V");
+    jmethodID methodId  = env->GetMethodID(cls,"setAudioInfo","(IIJ)V");
 
-  //  printf("file path %s \n", filename);
-    DATA_TYPE* data = NULL;  // output of the audio data
-    size_t size = 0;  // size of the output
-    int ret_code;     // checking return code at each step
-    bool isSetupSWR = false;
-
-    int flag = 0;
-    AVCodecContext *codecContext= NULL;
+    const char *filename = env->GetStringUTFChars(filePath,NULL);
+    int ret_code = 0;
     formatContext = avformat_alloc_context();
 
     if(avformat_open_input(&formatContext, filename, NULL,NULL) < 0){
         printf("Error : Invalid file");
-        ret_code = -2;
-        return reinterpret_cast<jstring>(ret_code);
+        avformat_close_input(&formatContext);
+        return -2;
     }
 
     if((ret_code = _getStreamInformation())!=0){
-        return reinterpret_cast<jstring>(ret_code);
+        return ret_code;
     }
 
     if((codecContext = _getCodecContext(audioStreamIndex))==NULL){
         ret_code = -5;
-        return reinterpret_cast<jstring>(ret_code);
+        return ret_code;
     }
 
     // Initialize the decoder.
@@ -87,9 +70,26 @@ Java_com_example_ffmpegintregation_DecodeAudio_decodeFile(JNIEnv *env, jobject o
         avcodec_free_context(&codecContext);
         avformat_close_input(&formatContext);
         ret_code = -6;
-        return reinterpret_cast<jstring>(ret_code);
+        return ret_code;
     }
 
+    isSetupSWR = false;
+    stopRequest = false;
+    int64_t duration = formatContext->duration;
+    int samplingRate = codecContext->sample_rate;
+    int channels = codecContext->channels;
+
+    env->CallVoidMethod(obj,methodId,samplingRate,channels,duration);
+
+    return ret_code;
+}
+
+extern "C" JNIEXPORT void JNICALL
+Java_com_example_ffmpegintregation_DecodeAudio_startDecoding(JNIEnv *env, jobject obj){
+
+    jclass cls = env->GetObjectClass(obj);
+    jmethodID methodId  = env->GetMethodID(cls,"setRawData","([B)V");
+    int ret_code = 0;
 
     //prepare the packet.
     AVPacket *packet = av_packet_alloc();
@@ -104,7 +104,7 @@ Java_com_example_ffmpegintregation_DecodeAudio_decodeFile(JNIEnv *env, jobject o
         ret_code = avcodec_send_packet(codecContext, packet);
 
         if (ret_code < 0) {
-            fprintf(stderr, "warning: failed to send packet to codec (%d)\n", ret_code);
+          //  fprintf(stderr, "warning: failed to send packet to codec (%d)\n", ret_code);
             av_packet_unref(packet);
             continue;
         }
@@ -120,7 +120,6 @@ Java_com_example_ffmpegintregation_DecodeAudio_decodeFile(JNIEnv *env, jobject o
             fprintf(stderr, "error: failed to receive frame from codec (%d)\n", ret_code);
             av_frame_unref(frame);
             av_packet_unref(packet);
-            flag = -8;
             break;
         }
 
@@ -140,10 +139,10 @@ Java_com_example_ffmpegintregation_DecodeAudio_decodeFile(JNIEnv *env, jobject o
              * ensuring that the output buffer will contain at least all the
              * converted input samples */
             max_dst_nb_samples = dst_nb_samples =
-                        av_rescale_rnd(frame->nb_samples, frame->sample_rate, frame->sample_rate, AV_ROUND_UP);
+                    av_rescale_rnd(frame->nb_samples, frame->sample_rate, frame->sample_rate, AV_ROUND_UP);
 
             int ret = av_samples_alloc(&dst_data, &dst_linesize, frame->channels,
-                                   dst_nb_samples, AV_SAMPLE_FMT_S16, 0);
+                                       dst_nb_samples, AV_SAMPLE_FMT_S16, 0);
             if (ret < 0) {
                 //   LOGV("Could not allocate destination samples\n");
                 //goto end;
@@ -157,10 +156,10 @@ Java_com_example_ffmpegintregation_DecodeAudio_decodeFile(JNIEnv *env, jobject o
             ret = swr_convert(swr_ctx, &dst_data, dst_nb_samples, (const uint8_t **)frame->data, frame->nb_samples);
 
             dst_bufsize = av_samples_get_buffer_size(&dst_linesize, frame->channels,
-                                                         ret, AV_SAMPLE_FMT_S16, 1);
+                                                     ret, AV_SAMPLE_FMT_S16, 1);
             if (dst_bufsize < 0) {
-                    //LOGV("Could not get sample buffer size\n");
-                    //goto end;
+                //LOGV("Could not get sample buffer size\n");
+                //goto end;
             }
             output_Buff = { &dst_data[0] };
 
@@ -176,7 +175,7 @@ Java_com_example_ffmpegintregation_DecodeAudio_decodeFile(JNIEnv *env, jobject o
         }
 
         samples_byte_array = env->NewByteArray(dst_bufsize);
-        if (samples_byte_array == NULL) {
+        if (samples_byte_array == NULL || stopRequest) {
           //  LOGV("Cannot Allocate byte array");
             break;
         }
@@ -188,27 +187,35 @@ Java_com_example_ffmpegintregation_DecodeAudio_decodeFile(JNIEnv *env, jobject o
         env->CallVoidMethod(obj,methodId,samples_byte_array);
         env->ReleaseByteArrayElements(samples_byte_array, jni_samples, 0);
 
-        size += dst_bufsize;
         av_frame_unref(frame);
         av_packet_unref(packet);
     }
-    
 
-    // Close the context and free all data associated to it, but not the context itself.
-    avcodec_close(codecContext);
+    env->CallVoidMethod(obj,methodId,NULL);
 
-    // Free the context itself.
-    avcodec_free_context(&codecContext);
 
-    // We are done here. Close the input.
-    avformat_close_input(&formatContext);
+    if (codecContext != NULL) {
+        // Close the context and free all data associated to it, but not the context itself.
+        avcodec_close(codecContext);
+        // Free the context itself.
+        avcodec_free_context(&codecContext);
+    }
+
+    if(formatContext!=NULL) {
+        // We are done here. Close the input.
+        avformat_close_input(&formatContext);
+    }
 
     if(swr_ctx !=NULL){
         swr_free(&swr_ctx);
     }
 
-    return 0;
+}
 
+extern "C" JNIEXPORT void JNICALL
+Java_com_example_ffmpegintregation_DecodeAudio_release(JNIEnv *env, jobject obj) {
+
+    stopRequest = true;
 }
 
 void _setUpSWR(AVFrame *pFrame) {

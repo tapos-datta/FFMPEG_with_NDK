@@ -1,5 +1,5 @@
 package com.example.ffmpegintregation;
 
-public interface JNIListener {
+public interface FrameListener {
     void setFrameData(byte[] rawData);
 }
