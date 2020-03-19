@@ -37,6 +37,8 @@ int _getStreamInformation();
 AVCodecContext* _getCodecContext(int index);
 
 void _setUpSWR(AVFrame *pFrame);
+//rational to double
+static double r2d(AVRational r);
 
 
 extern "C" JNIEXPORT jint JNICALL
@@ -93,13 +95,33 @@ Java_com_example_ffmpegintregation_DecodeAudio_startDecoding(JNIEnv *env, jobjec
 
     //prepare the packet.
     AVPacket *packet = av_packet_alloc();
-    //set default values
+
+    bool flag = true;
 
     while (av_read_frame(formatContext, packet) >= 0) {
         if (packet->stream_index != audioStreamIndex) {
             av_packet_unref(packet);
             continue;
         }
+
+
+        if(flag) {
+            //trying to seek audio Stream
+            int64_t target_dts_usecs =
+                    packet->dts +
+                    (int64_t) (70 / av_q2d(formatContext->streams[audioStreamIndex]->time_base));
+
+            int k = av_seek_frame(formatContext, audioStreamIndex, target_dts_usecs,
+                                  AVSEEK_FLAG_BACKWARD);
+            if (k < 0) {
+                //
+            } else {
+                avcodec_flush_buffers(codecContext);
+                flag = false;
+                continue;
+            }
+        }
+
 
         ret_code = avcodec_send_packet(codecContext, packet);
 
@@ -288,5 +310,10 @@ int _getStreamInformation() {
     }
     return 0;
 }
+
+static double r2d(AVRational r) {
+    return r.num == 0 || r.den == 0 ? 0. : (double) r.num / (double) r.den;
+}
+
 
 
