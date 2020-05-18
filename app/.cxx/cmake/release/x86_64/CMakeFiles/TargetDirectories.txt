@@ -1,3 +1,0 @@
-/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/x86_64/CMakeFiles/rebuild_cache.dir
-/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/x86_64/CMakeFiles/edit_cache.dir
-/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/Android_Projects/FFmpegIntregation/app/.cxx/cmake/release/x86_64/CMakeFiles/native-lib.dir

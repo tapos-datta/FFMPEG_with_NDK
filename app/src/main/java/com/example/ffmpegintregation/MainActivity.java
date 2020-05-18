@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,13 +21,13 @@ import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
 
-
     AudioPlayer audioPlayer = null;
     private  final  int STORAGE_PERMISSION_REQUEST_CODE = 8888;
     private Button chooser;
     private Button play;
     private TextView filePath;
     private boolean isPlayed = false;
+    private float seekValue = 0.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         chooser = findViewById(R.id.add);
         play = findViewById(R.id.play);
         filePath = findViewById(R.id.fileName);
-
 
         chooser.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.M)
@@ -95,10 +95,18 @@ public class MainActivity extends AppCompatActivity {
                     chooser.setEnabled(true);
                     play.setText("Play!");
                 }
-
-
             }
         });
+
+        findViewById(R.id.activity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),VideoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -155,6 +163,4 @@ public class MainActivity extends AppCompatActivity {
         });
         fileChooser.showDialog();
     }
-
-
 }

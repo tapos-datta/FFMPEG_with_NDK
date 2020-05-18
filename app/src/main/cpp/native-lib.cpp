@@ -6,7 +6,6 @@
 #include <jni.h>
 #include <string>
 
-
 extern "C"{
     #include <libavcodec/avcodec.h>
     #include <libavformat/avformat.h>
@@ -15,9 +14,6 @@ extern "C"{
     #include <libavutil/opt.h>
     #include <libavutil/samplefmt.h>
     #include <android/log.h>
-}
-#define  LOG_TAG    "testjni"
-#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
 
 AVFormatContext *formatContext = NULL;
 AVCodecContext *codecContext = NULL;
@@ -31,6 +27,12 @@ int dst_linesize;
 int dst_bufsize;
 bool isSetupSWR = false;
 bool stopRequest = false;
+bool is_seek_need = false;
+
+}
+#define  LOG_TAG    "testjni"
+#define  LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
+
 
 int _getStreamInformation();
 
@@ -96,7 +98,6 @@ Java_com_example_ffmpegintregation_DecodeAudio_startDecoding(JNIEnv *env, jobjec
     //prepare the packet.
     AVPacket *packet = av_packet_alloc();
 
-    bool flag = true;
 
     while (av_read_frame(formatContext, packet) >= 0) {
         if (packet->stream_index != audioStreamIndex) {
@@ -104,8 +105,7 @@ Java_com_example_ffmpegintregation_DecodeAudio_startDecoding(JNIEnv *env, jobjec
             continue;
         }
 
-
-        if(flag) {
+        if(is_seek_need) {
             //trying to seek audio Stream
             int64_t target_dts_usecs =
                     packet->dts +
@@ -117,7 +117,7 @@ Java_com_example_ffmpegintregation_DecodeAudio_startDecoding(JNIEnv *env, jobjec
                 //
             } else {
                 avcodec_flush_buffers(codecContext);
-                flag = false;
+                is_seek_need = false;
                 continue;
             }
         }
@@ -287,7 +287,6 @@ AVCodecContext* _getCodecContext(int streamIndex) {
 }
 
 
-
 int _getStreamInformation() {
 
     // find the first audio stream
@@ -309,10 +308,6 @@ int _getStreamInformation() {
         return -4;
     }
     return 0;
-}
-
-static double r2d(AVRational r) {
-    return r.num == 0 || r.den == 0 ? 0. : (double) r.num / (double) r.den;
 }
 
 

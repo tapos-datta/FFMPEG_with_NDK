@@ -10,7 +10,7 @@ cmake_minimum_required(VERSION 3.4.1)
 # You can define multiple libraries, and CMake builds them for you.
 # Gradle automatically packages shared libraries with your APK.
 
-set(FFMPEG_DIR "/media/tapos-datta/bd275d9f-d647-4d94-b629-742cdfb4cbab/FFMpeg_Build/${ANDROID_ABI}")
+set(FFMPEG_DIR "/Users/taposdatta/Documents/ffmpeg-build/${ANDROID_ABI}")
 
 add_library( # Sets the name of the library.
         native-lib
@@ -19,7 +19,10 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
-        native-lib.cpp)
+        native-lib.cpp
+        VideoDecoder.cpp
+        )
+
 
 add_library( avformat SHARED IMPORTED)
 
@@ -38,11 +41,14 @@ add_library( swresample SHARED IMPORTED)
 set_target_properties(swresample PROPERTIES IMPORTED_LOCATION
         ${FFMPEG_DIR}/lib/libswresample.so)
 
+add_library( swscale SHARED IMPORTED)
+set_target_properties(swscale PROPERTIES IMPORTED_LOCATION
+        ${FFMPEG_DIR}/lib/libswscale.so)
+
 include_directories(native-lib ${FFMPEG_DIR}/include)
 
 find_library( # Sets the name of the path variable.
         log-lib
-
         # Specifies the name of the NDK library that
         # you want CMake to locate.
         log
@@ -54,6 +60,9 @@ target_link_libraries( # Specifies the target library.
         avutil
         avcodec
         swresample
+        swscale
+        -ljnigraphics
+        -landroid # Add this.
 
         # Links the target library to the log library
         # included in the NDK.
