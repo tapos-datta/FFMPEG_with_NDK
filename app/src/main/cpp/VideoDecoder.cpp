@@ -2,6 +2,7 @@
 // Created by Tapos Datta on 2020-04-18.
 //
 
+#include <unistd.h>
 #include "VideoDecoder.h"
 
 jobject gSurface = nullptr;
@@ -20,7 +21,7 @@ extern "C" JNIEXPORT jint JNICALL
 Java_com_example_ffmpegintregation_VideoActivity_invoke(JNIEnv *env, jobject obj){
 
     int ret_code = 0;
-    const char *filename = "/storage/emulated/0/DCIM/Camera/VID_20190414_162825.mp4";
+    const char *filename = "/storage/emulated/0/DCIM/Camera/tuli pohela boishakh.mp4";
 //    const char *filename = "/storage/emulated/0/DCIM/Camera/20190814_2321061577206917827.mp4";
     frtContext = avformat_alloc_context();
 
@@ -133,6 +134,7 @@ int videoFrameExtract(){
     rgb_frame->height = height;
     rgb_frame->format = AV_PIX_FMT_RGBA;
 
+    bool is_seek_need = true;
     int ret = 0;
     while(av_read_frame(frtContext,packet) >= 0){
 
@@ -140,6 +142,24 @@ int videoFrameExtract(){
             av_packet_unref(packet);
             continue;
         }
+
+        if(is_seek_need) {
+            //trying to seek audio Stream
+            int64_t target_dts_usecs =
+                    packet->dts +
+                    (int64_t) (70 / av_q2d(frtContext->streams[videoStreamIndex]->time_base));
+
+            int k = av_seek_frame(frtContext, videoStreamIndex, target_dts_usecs,
+                                  AVSEEK_FLAG_BACKWARD);
+            if (k < 0) {
+                //
+            } else {
+                avcodec_flush_buffers(videoCodecContext);
+                is_seek_need = false;
+                continue;
+            }
+        }
+
         ret = avcodec_send_packet(videoCodecContext,packet);
 
         if(ret < 0){
@@ -169,6 +189,7 @@ int videoFrameExtract(){
                 ANativeWindow_unlockAndPost(nativeWindow);
             }
         }
+        usleep(60000);
     }
 
     free(buffer);

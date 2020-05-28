@@ -19,7 +19,7 @@ public class VideoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         surfaceView = findViewById(R.id.glView);
-        surfaceView.setEGLContextClientVersion(2);
+        surfaceView.setEGLContextClientVersion(3);
         renderer = new FrameRenderer(surfaceView);
         surfaceView.setRenderer(renderer);
 
@@ -35,7 +35,7 @@ public class VideoActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         initWithSurface(renderer.getSurface());
-                        invoke();
+                        int ret = invoke();
                     }
                 }).start();
 
@@ -47,7 +47,7 @@ public class VideoActivity extends AppCompatActivity {
         System.loadLibrary("native-lib");
     }
 
-    private native void invoke();
+    private native int invoke();
 
     private native void initWithSurface(Surface surface);
 }
